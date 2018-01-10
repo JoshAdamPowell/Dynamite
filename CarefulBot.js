@@ -5,14 +5,17 @@ var carefulBot = /** @class */ (function () {
     }
     carefulBot.prototype.makeMove = function (gamestate) {
         var gameLength = gamestate.rounds.length;
-        console.log(gameLength);
         if (gamestate.rounds.length === 0) {
             this.availableDynamite = 99;
             var opponentsDynamite = 0;
             return carefulBot.randomMove();
         }
-        console.log(carefulBot.getCurrentRoundScore(gamestate));
+        console.log("curr score" + carefulBot.getCurrentRoundScore(gamestate));
+        if (gamestate.rounds[gameLength - 1].p2 === "D") {
+            return 'W';
+        }
         if (carefulBot.getCurrentRoundScore(gamestate) > 3 && this.availableDynamite > 0) {
+            this.availableDynamite--;
             return 'D';
         }
         else {
@@ -34,20 +37,16 @@ var carefulBot = /** @class */ (function () {
         }
     };
     carefulBot.getCurrentRoundScore = function (gamestate) {
-        var currentScore = 0;
+        var currentScore = 1;
         for (var i = gamestate.rounds.length - 1; i > 0; i--) {
             if (gamestate.rounds[i].p1 === gamestate.rounds[i].p2) {
-                console.log(currentScore);
                 currentScore++;
-                if (currentScore > 3) {
-                    return 4;
-                }
-                ;
             }
             else {
                 return currentScore;
             }
         }
+        return currentScore;
     };
     carefulBot.randomMove = function () {
         var initialResult = Math.floor(Math.random() * 3);

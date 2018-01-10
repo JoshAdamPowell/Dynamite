@@ -14,7 +14,7 @@ var carefulBot = /** @class */ (function () {
         if (gamestate.rounds[gameLength - 1].p2 === "D") {
             return 'W';
         }
-        if (carefulBot.getCurrentRoundScore(gamestate) > 3 && this.availableDynamite > 0) {
+        if (carefulBot.getCurrentRoundScore(gamestate) > 2 && this.availableDynamite > 0) {
             this.availableDynamite--;
             return 'D';
         }

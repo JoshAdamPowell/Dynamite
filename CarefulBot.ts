@@ -1,17 +1,18 @@
 class carefulBot {
-
+availableDynamite = 99;
 
 
     makeMove(gamestate: gamestate) {
         let gameLength = gamestate.rounds.length;
-        let availableDynamite;
+        console.log(gameLength);
         if (gamestate.rounds.length === 0){
-            availableDynamite = 99;
+            this.availableDynamite = 99;
             let opponentsDynamite = 0;
             return carefulBot.randomMove();}
+        console.log(carefulBot.getCurrentRoundScore(gamestate));
+        if (carefulBot.getCurrentRoundScore(gamestate) > 3 && this.availableDynamite > 0 ) { return 'D'}
+        else {return carefulBot.beatLast(gamestate.rounds[gameLength-1].p2);}
 
-    if (carefulBot.getCurrentRoundScore(gamestate) > 3 && availableDynamite > 0 ) { return 'D'}
-        return carefulBot.beatLast(gamestate.rounds[gameLength-1].p2);
     }
 
     static beatLast(lastMove){
@@ -33,7 +34,9 @@ class carefulBot {
         let currentScore = 0;
         for (let i = gamestate.rounds.length -1; i > 0; i--){
             if (gamestate.rounds[i].p1 === gamestate.rounds[i].p2){
+                console.log(currentScore);
                 currentScore++;
+                if (currentScore > 3){ return 4};
             }
             else {
                 return currentScore;

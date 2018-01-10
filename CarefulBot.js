@@ -10,6 +10,15 @@ var carefulBot = /** @class */ (function () {
             var opponentsDynamite = 0;
             return carefulBot.randomMove();
         }
+        var winner = carefulBot.whoWon(gamestate.rounds[gameLength - 1].p1, gamestate.rounds[gameLength - 1].p2);
+        if (winner === 1) {
+            p1Score++;
+        }
+        if (winner === 2) {
+            p1Score = 0;
+            //change tactic here. (to beat current)
+        }
+        //TODO: If losing >5 times in a row change tactic.
         console.log("curr score" + carefulBot.getCurrentRoundScore(gamestate));
         if (gamestate.rounds[gameLength - 1].p2 === "D") {
             return 'W';
@@ -59,6 +68,78 @@ var carefulBot = /** @class */ (function () {
                 return 'P';
             default:
                 return 'P';
+        }
+    };
+    carefulBot.whoWon = function (p1, p2) {
+        if (p1 === 'S') {
+            switch (p2) {
+                case 'R':
+                    return 2;
+                case 'P':
+                    return 1;
+                case 'D':
+                    return 2;
+                case 'W':
+                    return 1;
+                case 'S':
+                    return 0;
+            }
+        }
+        if (p1 === 'R') {
+            switch (p2) {
+                case 'R':
+                    return 0;
+                case 'P':
+                    return 2;
+                case 'D':
+                    return 2;
+                case 'W':
+                    return 1;
+                case 'S':
+                    return 1;
+            }
+        }
+        if (p1 === 'P') {
+            switch (p2) {
+                case 'R':
+                    return 1;
+                case 'P':
+                    return 0;
+                case 'D':
+                    return 2;
+                case 'W':
+                    return 1;
+                case 'S':
+                    return 2;
+            }
+        }
+        if (p1 === 'D') {
+            switch (p2) {
+                case 'R':
+                    return 1;
+                case 'P':
+                    return 1;
+                case 'D':
+                    return 0;
+                case 'W':
+                    return 2;
+                case 'S':
+                    return 1;
+            }
+        }
+        if (p1 === 'W') {
+            switch (p2) {
+                case 'R':
+                    return 2;
+                case 'P':
+                    return 2;
+                case 'D':
+                    return 1;
+                case 'W':
+                    return 0;
+                case 'S':
+                    return 2;
+            }
         }
     };
     return carefulBot;

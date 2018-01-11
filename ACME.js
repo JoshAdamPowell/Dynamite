@@ -23,13 +23,16 @@ var ACME = /** @class */ (function () {
         if (winner === 1) {
             this.p1Score = 0;
         }
-        //TODO: If losing >5 times in a row change tactic.
+        if (gamestate.rounds[gameLength - 1].p1 === "D" && gamestate.rounds[gameLength - 1].p1 === "W") {
+            //if last dynamite was thwarted
+            this.dynamiteThreshold++;
+        }
         console.log("curr score" + ACME.getCurrentRoundScore(gamestate));
         if (gamestate.rounds[gameLength - 1].p2 === "D") {
             console.log('W');
             return 'W';
         }
-        if (ACME.getCurrentRoundScore(gamestate) > 2 && this.availableDynamite > 0) {
+        if (ACME.getCurrentRoundScore(gamestate) > this.dynamiteThreshold && this.availableDynamite > 0) {
             this.availableDynamite--;
             console.log('D');
             return 'D';

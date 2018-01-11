@@ -1,7 +1,7 @@
-class carefulBot {
-availableDynamite = 99;
-currentTactic = carefulBot.beatLast;
-p1Score;
+class ACME {
+    availableDynamite = 99;
+    currentTactic = ACME.beatLast;
+    p1Score;
 
     makeMove(gamestate: gamestate) {
         let gameLength = gamestate.rounds.length;
@@ -9,10 +9,10 @@ p1Score;
             this.availableDynamite = 99;
             let opponentsDynamite = 0;
 
-            return carefulBot.randomMove();
+            return ACME.randomMove();
         }
 
-        let winner = carefulBot.whoWon(gamestate.rounds[gameLength-1].p1,gamestate.rounds[gameLength-1].p2);
+        let winner = ACME.whoWon(gamestate.rounds[gameLength-1].p1,gamestate.rounds[gameLength-1].p2);
         if (winner === 2){
             this.p1Score ++;
             console.log("increasing p1 score" + this.p1Score);
@@ -24,10 +24,10 @@ p1Score;
         if (winner === 1){
             this.p1Score = 0;
         }
-            //TODO: If losing >5 times in a row change tactic.
-        console.log("curr score" + carefulBot.getCurrentRoundScore(gamestate));
+        //TODO: If losing >5 times in a row change tactic.
+        console.log("curr score" + ACME.getCurrentRoundScore(gamestate));
         if (gamestate.rounds[gameLength-1].p2 === "D"){ console.log('W');return 'W'}
-        if (carefulBot.getCurrentRoundScore(gamestate) > 2 && this.availableDynamite > 0 ) {
+        if (ACME.getCurrentRoundScore(gamestate) > 2 && this.availableDynamite > 0 ) {
             this.availableDynamite--;
             console.log('D');
             return 'D'}
@@ -39,13 +39,13 @@ p1Score;
 
     changeTactic(){
         console.log("Trying to change tactic");
-        if (this.currentTactic === carefulBot.beatLast){
-            this.currentTactic = carefulBot.loseLast
+        if (this.currentTactic === ACME.beatLast){
+            this.currentTactic = ACME.loseLast
         }
-        else if (this.currentTactic === carefulBot.loseLast){
-            this.currentTactic = carefulBot.randomMove
+        else if (this.currentTactic === ACME.loseLast){
+            this.currentTactic = ACME.randomMove
         }
-        else { this.currentTactic = carefulBot.beatLast}
+        else { this.currentTactic = ACME.beatLast}
     }
     static loseLast(lastMove){
         switch(lastMove){
@@ -56,7 +56,7 @@ p1Score;
             case 'P':
                 return 'R';
             default:
-                return carefulBot.randomMove();
+                return ACME.randomMove();
         }
     }
     static beatLast(lastMove){
@@ -68,7 +68,7 @@ p1Score;
             case 'P':
                 return 'S';
             default:
-                return carefulBot.randomMove();
+                return ACME.randomMove();
         }
     }
 
@@ -187,4 +187,4 @@ interface round {
 
 type outcome = 'R'|'S'|'P'|'D'|'W'
 
-export = new carefulBot()
+export = new ACME()

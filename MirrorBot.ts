@@ -13,23 +13,22 @@ p1Score;
         }
 
         let winner = carefulBot.whoWon(gamestate.rounds[gameLength-1].p1,gamestate.rounds[gameLength-1].p2);
-        if (winner === 2){
+        if (winner === 1){
             this.p1Score ++;
-            console.log("increasing p1 score" + this.p1Score);
+            console.log("increasing p1 score");
             if (this.p1Score > 4){
                 console.log("changing tactic");
                 this.changeTactic()
             }
         }
-        if (winner === 1){
+        if (winner === 2){
             this.p1Score = 0;
         }
             //TODO: If losing >5 times in a row change tactic.
         console.log("curr score" + carefulBot.getCurrentRoundScore(gamestate));
-        if (gamestate.rounds[gameLength-1].p2 === "D"){ console.log('W');return 'W'}
+        if (gamestate.rounds[gameLength-1].p2 === "D"){ return 'W'}
         if (carefulBot.getCurrentRoundScore(gamestate) > 2 && this.availableDynamite > 0 ) {
             this.availableDynamite--;
-            console.log('D');
             return 'D'}
         else {
             console.log("using current tactic");

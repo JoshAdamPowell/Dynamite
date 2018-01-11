@@ -110,7 +110,7 @@ const bot2 = loadBot(args.botPath2);
 // Dummy runner client that directly references the loaded bots using IDs 1 and 2
 class CliRunnerClient {
     createInstance(botId) {
-        return Promise.resolve({instanceId: botId});
+        return Promise.resolve(botId);
     }
 
     makeMove(instanceId, gamestate) {
@@ -155,10 +155,10 @@ module.exports = require("fs");
 /***/ (function(module, exports, __webpack_require__) {
 
 const Game = __webpack_require__(3);
-const gameOptions = {roundLimit: 2500, scoreToWin: 1000, dynamite: 100};
 
-function play (botId1, botId2, runnerClient, resultsDBManager, tournamentInstanceId) {
-    const bot1 =runnerClient.createInstance(botId1);
+function play (botId1, botId2, runnerClient, gameOptions, tournamentInstanceId) {
+
+    const bot1 = runnerClient.createInstance(botId1);
     const bot2 = runnerClient.createInstance(botId2);
     // Delete bots if the other fails to instantiate
     bot1.then(botId1 => bot2.catch(() => runnerClient.deleteInstance(botId1)));
@@ -168,10 +168,13 @@ function play (botId1, botId2, runnerClient, resultsDBManager, tournamentInstanc
         .then(instanceIds => new Game(instanceIds, runnerClient, gameOptions ))
         .then(game => game.play()
             .then(output => {
+                game.deleteBots();
                 const winnerId = output.score[1] > output.score[2] ? botId1 : botId2;
                 const result = {
+                    winner: output.winner,
                     score: output.score,
                     winnerId: winnerId,
+                    reason: output.reason,
                     gamestate: output.gamestate,
                     botIds: {
                         1: botId1,
@@ -185,11 +188,7 @@ function play (botId1, botId2, runnerClient, resultsDBManager, tournamentInstanc
                     result.errorReason = output.err.reason;
                 }
                 return result;
-            })
-            .then(result => resultsDBManager.saveMatchResult(result))
-            .then(resultsDBEntry => game.deleteBots()
-                .then(() => resultsDBEntry)
-            ));
+            }));
 }
 
 module.exports = play;
@@ -254,9 +253,11 @@ class Game {
 
     }
 
-    getOutput(err) {
+    getOutput(reason, err) {
         const output = {
             botIds: this.botIds,
+            winner: Object.keys(this.score).find(key => this.score[key] === Math.max(this.score[1], this.score[1])),
+            reason: reason,
             score: this.score,
             gamestate: this.gamestate[1]
         };
@@ -286,7 +287,7 @@ class Game {
                 this.updateScore(moves);
             })
             .then(() => this.play())
-            .catch(err => this.getOutput(err));
+            .catch(err => this.getOutput('error', err));
     }
 
     handleBotError(err, playerNum) {

@@ -2,6 +2,7 @@
 var carefulBot = /** @class */ (function () {
     function carefulBot() {
         this.availableDynamite = 99;
+        this.currentTactic = carefulBot.beatLast;
     }
     carefulBot.prototype.makeMove = function (gamestate) {
         var gameLength = gamestate.rounds.length;
@@ -11,24 +12,55 @@ var carefulBot = /** @class */ (function () {
             return carefulBot.randomMove();
         }
         var winner = carefulBot.whoWon(gamestate.rounds[gameLength - 1].p1, gamestate.rounds[gameLength - 1].p2);
-        if (winner === 1) {
-            p1Score++;
-        }
         if (winner === 2) {
-            p1Score = 0;
-            //change tactic here. (to beat current)
+            this.p1Score++;
+            console.log("increasing p1 score" + this.p1Score);
+            if (this.p1Score > 4) {
+                console.log("changing tactic");
+                this.changeTactic();
+            }
+        }
+        if (winner === 1) {
+            this.p1Score = 0;
         }
         //TODO: If losing >5 times in a row change tactic.
         console.log("curr score" + carefulBot.getCurrentRoundScore(gamestate));
         if (gamestate.rounds[gameLength - 1].p2 === "D") {
+            console.log('W');
             return 'W';
         }
         if (carefulBot.getCurrentRoundScore(gamestate) > 2 && this.availableDynamite > 0) {
             this.availableDynamite--;
+            console.log('D');
             return 'D';
         }
         else {
-            return carefulBot.beatLast(gamestate.rounds[gameLength - 1].p2);
+            console.log("using current tactic");
+            return this.currentTactic(gamestate.rounds[gameLength - 1].p2);
+        }
+    };
+    carefulBot.prototype.changeTactic = function () {
+        console.log("Trying to change tactic");
+        if (this.currentTactic === carefulBot.beatLast) {
+            this.currentTactic = carefulBot.loseLast;
+        }
+        else if (this.currentTactic === carefulBot.loseLast) {
+            this.currentTactic = carefulBot.randomMove;
+        }
+        else {
+            this.currentTactic = carefulBot.beatLast;
+        }
+    };
+    carefulBot.loseLast = function (lastMove) {
+        switch (lastMove) {
+            case 'R':
+                return 'S';
+            case 'S':
+                return 'P';
+            case 'P':
+                return 'R';
+            default:
+                return carefulBot.randomMove();
         }
     };
     carefulBot.beatLast = function (lastMove) {
@@ -39,10 +71,8 @@ var carefulBot = /** @class */ (function () {
                 return 'R';
             case 'P':
                 return 'S';
-            case 'D':
-                return 'W';
             default:
-                return this.randomMove();
+                return carefulBot.randomMove();
         }
     };
     carefulBot.getCurrentRoundScore = function (gamestate) {

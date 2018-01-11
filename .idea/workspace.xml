@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93b1f004-b0d9-4b39-a4bb-d0a4dc986b54" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/ScrewYouDymiante.ts" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/ACME.js" afterPath="$PROJECT_DIR$/ACME.js" />
       <change beforePath="$PROJECT_DIR$/ACME.ts" afterPath="$PROJECT_DIR$/ACME.ts" />
-      <change beforePath="$PROJECT_DIR$/tester.js" afterPath="$PROJECT_DIR$/tester.js" />
+      <change beforePath="$PROJECT_DIR$/ScrewYouDymiante.js" afterPath="$PROJECT_DIR$/ScrewYouDymiante.js" />
+      <change beforePath="$PROJECT_DIR$/ScrewYouDymiante.ts" afterPath="$PROJECT_DIR$/ScrewYouDymiante.ts" />
       <change beforePath="$PROJECT_DIR$/visualiseResults.js" afterPath="$PROJECT_DIR$/visualiseResults.js" />
       <change beforePath="$PROJECT_DIR$/visualiseResults.ts" afterPath="$PROJECT_DIR$/visualiseResults.ts" />
     </list>
@@ -52,8 +52,8 @@
       <file leaf-file-name="ACME.ts" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ACME.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="29" column="27" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="203" selection-end-column="19" />
+            <state relative-caret-position="0">
+              <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -62,8 +62,8 @@
       <file leaf-file-name="ScrewYouDymiante.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ScrewYouDymiante.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+            <state relative-caret-position="300">
+              <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -83,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/visualiseResults.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="737">
-              <caret line="0" column="40007" lean-forward="false" selection-start-line="0" selection-start-column="40007" selection-end-line="0" selection-end-column="40007" />
+              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -122,8 +122,8 @@
         <option value="$PROJECT_DIR$/MirrorBot.ts" />
         <option value="$PROJECT_DIR$/CarefulBot.ts" />
         <option value="$PROJECT_DIR$/tester.js" />
-        <option value="$PROJECT_DIR$/visualiseResults.ts" />
         <option value="$PROJECT_DIR$/ACME.ts" />
+        <option value="$PROJECT_DIR$/visualiseResults.ts" />
         <option value="$PROJECT_DIR$/ScrewYouDymiante.ts" />
       </list>
     </option>
@@ -306,12 +306,12 @@
       <option name="presentableId" value="Default" />
       <updated>1515595900132</updated>
       <workItem from="1515595901454" duration="10250000" />
-      <workItem from="1515662961835" duration="5431000" />
+      <workItem from="1515662961835" duration="8464000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15681000" />
+    <option name="totallyTimeSpent" value="18714000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-1509" width="2418" height="1468" extended-state="6" />
@@ -611,26 +611,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visualiseResults.ts">
+    <entry file="file://$PROJECT_DIR$/ACME.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="737">
-          <caret line="0" column="40007" lean-forward="false" selection-start-line="0" selection-start-column="40007" selection-end-line="0" selection-end-column="40007" />
+        <state relative-caret-position="0">
+          <caret line="0" column="10" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ACME.ts">
+    <entry file="file://$PROJECT_DIR$/visualiseResults.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="29" column="27" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="203" selection-end-column="19" />
+        <state relative-caret-position="737">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ScrewYouDymiante.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="6" column="19" lean-forward="true" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="19" />
+        <state relative-caret-position="300">
+          <caret line="10" column="49" lean-forward="true" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
           <folding />
         </state>
       </provider>

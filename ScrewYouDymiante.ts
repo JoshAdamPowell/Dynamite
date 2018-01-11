@@ -2,9 +2,9 @@ class ScrewYouDymiante {
     availableDynamite = 99;
     currentTactic = ScrewYouDymiante.beatLast;
     p1ScoreRun;
-    p2ScoreRun;
-    p1ScoreOverall;
-    p2ScoreOverall;
+    p2ScoreRun = 0;
+    p1ScoreOverall = 0;
+    p2ScoreOverall = 0;
     dynamiteThreshold = 2;
 
     makeMove(gamestate: gamestate) {
@@ -19,19 +19,19 @@ class ScrewYouDymiante {
         let winner = ScrewYouDymiante.whoWon(gamestate.rounds[gameLength-1].p1,gamestate.rounds[gameLength-1].p2);
         if (winner === 2){
             this.p2ScoreRun ++;
-            this.p2ScoreOverall++;
-            console.log("increasing p1 score" + this.p2ScoreRun);
+            this.p2ScoreOverall += ScrewYouDymiante.getCurrentRoundScore(gamestate);
             if (this.p2ScoreRun > 4){
                 console.log("changing tactic");
                 this.changeTactic()
             }
         }
         if (winner === 1){
-            this.p1ScoreOverall++;
+            this.p1ScoreOverall += ScrewYouDymiante.getCurrentRoundScore(gamestate);
             this.p2ScoreRun = 0;
         }
 
-        if (this.p1ScoreOverall > 950 && this.p2ScoreOverall > 950 && this.availableDynamite > 0){
+        if (this.p1ScoreOverall > 700 && this.p2ScoreOverall > 700 && this.availableDynamite > 0){
+            this.availableDynamite--;
             return('D');
         }
 
@@ -45,10 +45,8 @@ class ScrewYouDymiante {
         if (gamestate.rounds[gameLength-1].p2 === "D"){ console.log('W');return 'W'}
         if (ScrewYouDymiante.getCurrentRoundScore(gamestate) > this.dynamiteThreshold && this.availableDynamite > 0 ) {
             this.availableDynamite--;
-            console.log('D');
             return 'D'}
         else {
-            console.log("using current tactic");
             return this.currentTactic(gamestate.rounds[gameLength-1].p2);}
 
     }
@@ -56,12 +54,12 @@ class ScrewYouDymiante {
     changeTactic(){
         console.log("Trying to change tactic");
         if (this.currentTactic === ScrewYouDymiante.beatLast){
+            console.log("CHanging to lose last");
             this.currentTactic = ScrewYouDymiante.loseLast
         }
-        else if (this.currentTactic === ScrewYouDymiante.loseLast){
-            this.currentTactic = ScrewYouDymiante.randomMove
-        }
-        else { this.currentTactic = ScrewYouDymiante.beatLast}
+        else {
+            console.log("CHanging to beat last");
+            this.currentTactic = ScrewYouDymiante.beatLast}
     }
     static loseLast(lastMove){
         switch(lastMove){

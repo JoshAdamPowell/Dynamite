@@ -2,9 +2,9 @@ class ACME {
     availableDynamite = 99;
     currentTactic = ACME.beatLast;
     p1ScoreRun;
-    p2ScoreRun;
-    p1ScoreOverall;
-    p2ScoreOverall;
+    p2ScoreRun = 0;
+    p1ScoreOverall = 0;
+    p2ScoreOverall = 0;
     dynamiteThreshold = 2;
 
     makeMove(gamestate: gamestate) {
@@ -19,19 +19,22 @@ class ACME {
         let winner = ACME.whoWon(gamestate.rounds[gameLength-1].p1,gamestate.rounds[gameLength-1].p2);
         if (winner === 2){
             this.p2ScoreRun ++;
-            this.p2ScoreOverall++;
-            console.log("increasing p1 score" + this.p2ScoreRun);
+            this.p2ScoreOverall += ACME.getCurrentRoundScore(gamestate);
+            console.log("increasing p2 score" + this.p2ScoreRun);
             if (this.p2ScoreRun > 4){
                 console.log("changing tactic");
                 this.changeTactic()
             }
         }
         if (winner === 1){
-            this.p1ScoreOverall++;
+            this.p1ScoreOverall += ACME.getCurrentRoundScore(gamestate);
             this.p2ScoreRun = 0;
         }
 
-
+        if (this.p1ScoreOverall > 700 && this.p2ScoreOverall > 700 && this.availableDynamite > 0){
+            this.availableDynamite--;
+            return('D');
+        }
 
         if (gamestate.rounds[gameLength-1].p1 === "D" && gamestate.rounds[gameLength-1].p2 === "W"){
             console.log("increasing dynamite threshold");
@@ -202,3 +205,4 @@ interface round {
 type outcome = 'R'|'S'|'P'|'D'|'W'
 
 export = new ACME()
+

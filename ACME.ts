@@ -1,8 +1,11 @@
 class ACME {
     availableDynamite = 99;
     currentTactic = ACME.beatLast;
-    p1Score;
-    dynamiteThreshold;
+    p1ScoreRun;
+    p2ScoreRun;
+    p1ScoreOverall;
+    p2ScoreOverall;
+    dynamiteThreshold = 2;
 
     makeMove(gamestate: gamestate) {
         let gameLength = gamestate.rounds.length;
@@ -15,22 +18,27 @@ class ACME {
 
         let winner = ACME.whoWon(gamestate.rounds[gameLength-1].p1,gamestate.rounds[gameLength-1].p2);
         if (winner === 2){
-            this.p1Score ++;
-            console.log("increasing p1 score" + this.p1Score);
-            if (this.p1Score > 4){
+            this.p2ScoreRun ++;
+            this.p2ScoreOverall++;
+            console.log("increasing p1 score" + this.p2ScoreRun);
+            if (this.p2ScoreRun > 4){
                 console.log("changing tactic");
                 this.changeTactic()
             }
         }
         if (winner === 1){
-            this.p1Score = 0;
+            this.p1ScoreOverall++;
+            this.p2ScoreRun = 0;
         }
 
-        if (gamestate.rounds[gameLength-1].p1 === "D" && gamestate.rounds[gameLength-1].p1 === "W"){
+
+
+        if (gamestate.rounds[gameLength-1].p1 === "D" && gamestate.rounds[gameLength-1].p2 === "W"){
+            console.log("increasing dynamite threshold");
             //if last dynamite was thwarted
             this.dynamiteThreshold++;
         }
-        
+
         console.log("curr score" + ACME.getCurrentRoundScore(gamestate));
         if (gamestate.rounds[gameLength-1].p2 === "D"){ console.log('W');return 'W'}
         if (ACME.getCurrentRoundScore(gamestate) > this.dynamiteThreshold && this.availableDynamite > 0 ) {

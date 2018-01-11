@@ -1,4 +1,4 @@
-const bot = require('./CarefulBot');
+const bot = require('./ACME');
 
 const gamestate = {rounds: []};
 ["R", "P", "S", "D", "W"].forEach(move => {
@@ -13,4 +13,7 @@ gamestate.rounds.push({p1: "P", p2: "R"});
 for (let i=0; i< 110; i++){
     gamestate.rounds.push({p1: "P", p2: "R"});
 }
+gamestate.rounds.push({p1: "D", p2: "W"});
+console.log(bot.makeMove(gamestate));
+gamestate.rounds.push({p1: "D", p2: "W"});
 console.log(bot.makeMove(gamestate));

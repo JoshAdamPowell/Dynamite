@@ -1,18 +1,18 @@
 "use strict";
-var ACME = /** @class */ (function () {
-    function ACME() {
+var ScrewYouDymiante = /** @class */ (function () {
+    function ScrewYouDymiante() {
         this.availableDynamite = 99;
-        this.currentTactic = ACME.beatLast;
+        this.currentTactic = ScrewYouDymiante.beatLast;
         this.dynamiteThreshold = 2;
     }
-    ACME.prototype.makeMove = function (gamestate) {
+    ScrewYouDymiante.prototype.makeMove = function (gamestate) {
         var gameLength = gamestate.rounds.length;
         if (gamestate.rounds.length === 0) {
             this.availableDynamite = 99;
             var opponentsDynamite = 0;
-            return ACME.randomMove();
+            return ScrewYouDymiante.randomMove();
         }
-        var winner = ACME.whoWon(gamestate.rounds[gameLength - 1].p1, gamestate.rounds[gameLength - 1].p2);
+        var winner = ScrewYouDymiante.whoWon(gamestate.rounds[gameLength - 1].p1, gamestate.rounds[gameLength - 1].p2);
         if (winner === 2) {
             this.p2ScoreRun++;
             this.p2ScoreOverall++;
@@ -26,17 +26,20 @@ var ACME = /** @class */ (function () {
             this.p1ScoreOverall++;
             this.p2ScoreRun = 0;
         }
+        if (this.p1ScoreOverall > 950 && this.p2ScoreOverall > 950 && this.availableDynamite > 0) {
+            return ('D');
+        }
         if (gamestate.rounds[gameLength - 1].p1 === "D" && gamestate.rounds[gameLength - 1].p2 === "W") {
             console.log("increasing dynamite threshold");
             //if last dynamite was thwarted
             this.dynamiteThreshold++;
         }
-        console.log("curr score" + ACME.getCurrentRoundScore(gamestate));
+        console.log("curr score" + ScrewYouDymiante.getCurrentRoundScore(gamestate));
         if (gamestate.rounds[gameLength - 1].p2 === "D") {
             console.log('W');
             return 'W';
         }
-        if (ACME.getCurrentRoundScore(gamestate) > this.dynamiteThreshold && this.availableDynamite > 0) {
+        if (ScrewYouDymiante.getCurrentRoundScore(gamestate) > this.dynamiteThreshold && this.availableDynamite > 0) {
             this.availableDynamite--;
             console.log('D');
             return 'D';
@@ -46,19 +49,19 @@ var ACME = /** @class */ (function () {
             return this.currentTactic(gamestate.rounds[gameLength - 1].p2);
         }
     };
-    ACME.prototype.changeTactic = function () {
+    ScrewYouDymiante.prototype.changeTactic = function () {
         console.log("Trying to change tactic");
-        if (this.currentTactic === ACME.beatLast) {
-            this.currentTactic = ACME.loseLast;
+        if (this.currentTactic === ScrewYouDymiante.beatLast) {
+            this.currentTactic = ScrewYouDymiante.loseLast;
         }
-        else if (this.currentTactic === ACME.loseLast) {
-            this.currentTactic = ACME.randomMove;
+        else if (this.currentTactic === ScrewYouDymiante.loseLast) {
+            this.currentTactic = ScrewYouDymiante.randomMove;
         }
         else {
-            this.currentTactic = ACME.beatLast;
+            this.currentTactic = ScrewYouDymiante.beatLast;
         }
     };
-    ACME.loseLast = function (lastMove) {
+    ScrewYouDymiante.loseLast = function (lastMove) {
         switch (lastMove) {
             case 'R':
                 return 'S';
@@ -67,10 +70,10 @@ var ACME = /** @class */ (function () {
             case 'P':
                 return 'R';
             default:
-                return ACME.randomMove();
+                return ScrewYouDymiante.randomMove();
         }
     };
-    ACME.beatLast = function (lastMove) {
+    ScrewYouDymiante.beatLast = function (lastMove) {
         switch (lastMove) {
             case 'R':
                 return 'P';
@@ -79,10 +82,10 @@ var ACME = /** @class */ (function () {
             case 'P':
                 return 'S';
             default:
-                return ACME.randomMove();
+                return ScrewYouDymiante.randomMove();
         }
     };
-    ACME.getCurrentRoundScore = function (gamestate) {
+    ScrewYouDymiante.getCurrentRoundScore = function (gamestate) {
         var currentScore = 1;
         for (var i = gamestate.rounds.length - 1; i > 0; i--) {
             if (gamestate.rounds[i].p1 === gamestate.rounds[i].p2) {
@@ -94,7 +97,7 @@ var ACME = /** @class */ (function () {
         }
         return currentScore;
     };
-    ACME.randomMove = function () {
+    ScrewYouDymiante.randomMove = function () {
         var initialResult = Math.floor(Math.random() * 3);
         switch (initialResult) {
             case 0:
@@ -107,7 +110,7 @@ var ACME = /** @class */ (function () {
                 return 'P';
         }
     };
-    ACME.whoWon = function (p1, p2) {
+    ScrewYouDymiante.whoWon = function (p1, p2) {
         if (p1 === 'S') {
             switch (p2) {
                 case 'R':
@@ -179,6 +182,6 @@ var ACME = /** @class */ (function () {
             }
         }
     };
-    return ACME;
+    return ScrewYouDymiante;
 }());
-module.exports = new ACME();
+module.exports = new ScrewYouDymiante();
